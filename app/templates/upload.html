@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel Uploader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Excel Files</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file_type">Select File Type:</label>
+            <select name="file_type" id="file_type" required>
+                <option value="">-- Select File Type --</option>
+                <option value="transaction">Transaction Data</option>
+                <option value="tele_sales">Tele Sales Tracker</option>
+                <option value="renewal">Renewal Tracker</option>
+                <option value="renewal_data">Renewal Data</option>
+                <option value="product_lookup">Product Lookup</option>
+                <option value="partner">Partner Database</option>
+                <option value="partner_contact">Partner Contact Database</option>
+                <option value="contact">Contact Database</option>
+                <option value="company">Company Database</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="file">Select Excel File:</label>
+            <input type="file" name="file" id="file" accept=".xlsx,.xls" required>
+        </div>
+        
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

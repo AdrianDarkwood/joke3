@@ -1,0 +1,34 @@
+{% extends "upload.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Database Contents</h2>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Table Name</th>
+                        <th>Record Count</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for name, count in tables.items() %}
+                    <tr>
+                        <td>{{ name }}</td>
+                        <td>{{ count }}</td>
+                        <td>
+                            <a href="{{ url_for('main.table_view', table_name=name.lower()) }}" 
+                               class="btn btn-sm btn-primary">View</a>
+                            <a href="{{ url_for('main.download_table', table_name=name.lower()) }}" 
+                               class="btn btn-sm btn-success">Download</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
